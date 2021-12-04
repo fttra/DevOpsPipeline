@@ -4,9 +4,9 @@ pipeline {
         stage('Load the variables') {
             steps {
                 script{
-                File FILE_LIST = new File("PROV_LIST.txt")
+                File FILE_LIST = new File(PROV_LIST.txt)
                 def PROV_LIST = FILE_LIST.text
-                File FILE_NUM = new File("PROV_NUM.txt")
+                File FILE_NUM = new File(PROV_NUM.txt)
                 def PROV_NUM = FILE_NUM.text
                 print (PROV_LIST + " " + PROV_NUM)
                 }
