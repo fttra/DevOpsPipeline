@@ -6,7 +6,6 @@ pipeline {
                 script{
                 def PROV_LIST = readFile(file: 'PROV_LIST.txt')
                 def PROV_NUM = readFile(file: 'PROV_NUM.txt')
-                print (PROV_LIST + " " + PROV_NUM)
                 }
             }
         }
@@ -14,6 +13,9 @@ pipeline {
             steps {
                 script{
                     errorString = ""
+                    
+                    echo (PROV_LIST)
+                    
                     if (PROV_LIST.isEmpty()){
                         errorString += ("You haven't provided a LIST\r")
                     }
