@@ -1,6 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Load the variables') {
+            steps {
+                script{
+                File FILE_LIST = new File("PROV_LIST.txt")
+                String PROV_LIST = FILE_LIST.text
+                File FILE_NUM = new File("PROV_NUM.txt")
+                String PROV_NUM = FILE_NUM.text
+                }
+            }
+        }
         stage('Initial data validation') {
             steps {
                 script{
