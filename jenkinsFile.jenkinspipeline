@@ -5,9 +5,10 @@ pipeline {
             steps {
                 script{
                 File FILE_LIST = new File("PROV_LIST.txt")
-                String PROV_LIST = FILE_LIST.text
+                def PROV_LIST = FILE_LIST.text
                 File FILE_NUM = new File("PROV_NUM.txt")
-                String PROV_NUM = FILE_NUM.text
+                def PROV_NUM = FILE_NUM.text
+                print (PROV_LIST + " " + PROV_NUM)
                 }
             }
         }
