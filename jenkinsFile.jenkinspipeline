@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    stages {
+        stage('Initial data validation') {
+            steps {
+                script{
+                    errorString = ""
+                    if (PROV_LIST.isEmpty()){
+                        errorString += ("You haven't provided a LIST\r")
+                    }
+                    try{
+                    NUMBER = PROV_NUM as Integer
+                    } catch (err) {
+                        error(errorString + "Provided MULTIPLICITY VALUE \"" + PROV_NUM + "\" is not a number: " + err + "\r")
+                    }
+                    if (NUMBER<=0){
+                        errorString += ("MULTIPLICITY VALUE needs to be higher than 0\r")
+                    }
+                    LIST = PROV_LIST.split(',').collect{it as String}
+                    if (LIST.size() < NUMBER){
+                        errorString += ("MULTIPLICITY VALUE is bigger than LIST size\r")
+                    }
+                    if (!errorString.isEmpty()){
+                        error(errorString)
+                    }
+                }
+            }
+        }
+        stage('Executing script') {
+            steps {
+                script{
+                    RES_LIST = []
+                    for (int i=1; i<=LIST.size(); i++){
+                        if(i%NUMBER==0){
+                            RES_LIST.add(LIST[i-1])
+                        }
+                    }
+                }
+            }
+        }
+        stage('Printing the result') {
+            steps {
+                script{
+                    if (RES_LIST.size()==1){
+                        echo ("Result: " + RES_LIST.toString() + " is the \"" + PROV_NUM + "\" value on the LIST: \"" + PROV_LIST.toString() + "\"")
+                    } else if (RES_LIST.size()>1) {
+                        echo ("Result: " + RES_LIST.toString() + " are every \"" + PROV_NUM + "\" values on the LIST: \"" + PROV_LIST.toString() + "\"")
+                    } else {
+                        echo "Error"
+                    }
+                }
+            }
+        }
+    }
+}
+
