@@ -57,6 +57,8 @@ pipeline {
             }
         }
     }
+}
+
             def  classy (List LIST, int NUMBER){
                     RES_LIST = []
                     for (int i=1; i<=LIST.size(); i++){
@@ -67,6 +69,3 @@ pipeline {
                     echo RES_LIST.toString()
                     return RES_LIST
         }
-}
-
-
