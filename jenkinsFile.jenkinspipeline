@@ -39,7 +39,7 @@ pipeline {
         stage('Executing script') {
             steps {
                 script{
-                classy(LIST, NUMBER)
+                findEveryNthNum(LIST, NUMBER)
                 }
             }
         }
@@ -59,13 +59,13 @@ pipeline {
     }
 }
 
-            def  classy (List LIST, int NUMBER){
-                    RES_LIST = []
-                    for (int i=1; i<=LIST.size(); i++){
-                        if(i%NUMBER==0){
-                            RES_LIST.add(LIST[i-1])
-                        }
-                    } 
-                    echo RES_LIST.toString()
-                    return RES_LIST
+def findEveryNthNum (List LIST, int NUMBER){
+    RES_LIST = []
+    for (int i=1; i<=LIST.size(); i++){
+        if(i%NUMBER==0){
+            RES_LIST.add(LIST[i-1])
+            }
         }
+        echo RES_LIST.toString()
+        return RES_LIST
+}
