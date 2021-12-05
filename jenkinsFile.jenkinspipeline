@@ -66,6 +66,5 @@ def findEveryNthNum (List LIST, int NUMBER){
             RES_LIST.add(LIST[i-1])
             }
         }
-        echo RES_LIST.toString()
         return RES_LIST
 }
