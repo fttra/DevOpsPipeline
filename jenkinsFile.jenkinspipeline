@@ -1,19 +1,11 @@
-pipeline {
-    agent any
-    stages {
+node {
         stage('Load the variables') {
-            steps {
-                script{
                 PROV_LIST = ""
                 PROV_NUM = ""
                 PROV_LIST = readFile(file: 'PROV_LIST.txt')
-                PROV_NUM = readFile(file: 'PROV_NUM.txt')
-                }
-            }
+                PROV_NUM = readFile(file: 'PROV_NUM.txt')               
         }
         stage('Initial data validation') {
-            steps {
-                script{
                     errorString = ""
                     if (PROV_LIST.isEmpty()){
                         errorString += ("You haven't provided a LIST\r")
@@ -33,19 +25,11 @@ pipeline {
                     if (!errorString.isEmpty()){
                         error(errorString)
                     }
-                }
-            }
         }
         stage('Executing script') {
-            steps {
-                script{
                 findEveryNthNum(LIST, NUMBER)
-                }
-            }
         }
         stage('Printing the result') {
-            steps {
-                script{
                     if (RES_LIST.size()==1){
                         echo ("Result: " + RES_LIST.toString() + " is the \"" + PROV_NUM + "\" value on the LIST: \"" + PROV_LIST.toString() + "\"")
                     } else if (RES_LIST.size()>1) {
@@ -53,10 +37,7 @@ pipeline {
                     } else {
                         echo "Error"
                     }
-                }
-            }
         }
-    }
 }
 
 def findEveryNthNum (List LIST, int NUMBER){
